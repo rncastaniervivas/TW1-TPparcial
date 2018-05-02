@@ -31,7 +31,9 @@ public class FarmaciaTest extends SpringTest {
 				.add(Restrictions.eq("diaDeTurno", "Martes"))
 				.list();
 		
-		assertThat(resultado).hasSize(2);
+		for(Farmacia farmaciaPorTurno : resultado ){
+			assertThat(farmaciaPorTurno.getDiaDeTurno()).isEqualTo("Martes");
+		}
 	}
 	
 	@Test
