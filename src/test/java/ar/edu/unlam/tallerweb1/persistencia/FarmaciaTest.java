@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.modelo.Farmacia;
+import ar.edu.unlam.tallerweb1.modelo.Barrio;
+import ar.edu.unlam.tallerweb1.modelo.Direccion;
 
 public class FarmaciaTest extends SpringTest {
 	@Test
@@ -124,7 +126,9 @@ public class FarmaciaTest extends SpringTest {
 				.add(Restrictions.eq("farmaDir.barrio", villaLuro))
 				.list();
 		
-		assertThat(resultado).hasSize(1);
+		for (Farmacia farmaciaPorBarrio : resultado){
+			assertThat(farmaciaPorBarrio.getDireccion().getBarrio().getNombre()).isEqualTo("Villa Luro");
+		}
 		
 	}
 	
