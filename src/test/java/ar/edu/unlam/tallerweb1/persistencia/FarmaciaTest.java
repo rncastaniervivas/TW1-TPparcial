@@ -70,5 +70,61 @@ public class FarmaciaTest extends SpringTest {
 		
 	}
 	
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testQueBuscaLasFarmaciasDeUnBarrio(){
+		Barrio villaLuro = new Barrio();
+		villaLuro.setNombre("Villa Luro");
+		getSession().save(villaLuro);
+		
+		Barrio avellaneda = new Barrio();
+		avellaneda.setNombre("Avellaneda");
+		getSession().save(avellaneda);
+		
+		Barrio caballito = new Barrio();
+		caballito.setNombre("Caballito");
+		getSession().save(caballito);
+		
+		Direccion calleBasualdo = new Direccion();
+		calleBasualdo.setCalle("Basualdo");
+		calleBasualdo.setBarrio(villaLuro);
+		getSession().save(calleBasualdo);
+		
+		Direccion calleMitre = new Direccion();
+		calleMitre.setCalle("Av. Mitre");
+		calleMitre.setBarrio(avellaneda);
+		getSession().save(calleMitre);
+		
+		Direccion donBosco = new Direccion();
+		donBosco.setCalle("Don Bosco");
+		donBosco.setBarrio(caballito);
+		getSession().save(donBosco);
+		
+		Farmacia farmacity = new Farmacia ("Farmacity", "Martes");
+		farmacity.setDireccion(calleBasualdo);
+		getSession().save(farmacity);
+		
+		Farmacia farmaciaDelOeste = new Farmacia ("Farmacia del Oeste", "Jueves");
+		farmaciaDelOeste.setDireccion(calleBasualdo);
+		getSession().save(farmaciaDelOeste);
+		
+		Farmacia farmaciaMitre = new Farmacia ("Farmacia Mitre", "Martes");
+		farmaciaMitre.setDireccion(calleMitre);
+		getSession().save(farmaciaMitre);
+		
+		Farmacia farmaciaAzul = new Farmacia ("Farmacia Azul", "Viernes");
+		farmaciaAzul.setDireccion(calleBasualdo);
+		getSession().save(farmaciaAzul);
+		
+		List<Farmacia> resultado = getSession().createCriteria(Farmacia.class)
+				.createAlias("direccion", "farmaDir")
+				.add(Restrictions.eq("farmaDir.barrio", villaLuro))
+				.list();
+		
+		assertThat(resultado).hasSize(1);
+		
+	}
+	
 	
 }
