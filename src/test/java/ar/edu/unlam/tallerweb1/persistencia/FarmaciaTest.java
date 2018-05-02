@@ -34,5 +34,41 @@ public class FarmaciaTest extends SpringTest {
 		assertThat(resultado).hasSize(2);
 	}
 	
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testQueBuscaLasFarmaciasDeUnaCalle(){
+		Direccion calleSuipacha = new Direccion();
+		calleSuipacha.setCalle("Suipacha");
+		getSession().save(calleSuipacha);
+		
+		Direccion calleArieta = new Direccion();
+		calleArieta.setCalle("Arieta");
+		getSession().save(calleArieta);
+		
+		Farmacia farmacity = new Farmacia ("Farmacity", "Martes");
+		farmacity.setDireccion(calleSuipacha);
+		getSession().save(farmacity);
+		
+		Farmacia farmaciaDelOeste = new Farmacia ("Farmacia del Oeste", "Jueves");
+		farmaciaDelOeste.setDireccion(calleSuipacha);
+		getSession().save(farmaciaDelOeste);
+		
+		Farmacia farmaciaArieta = new Farmacia ("Farmacia Arieta", "Martes");
+		farmaciaArieta.setDireccion(calleArieta);
+		getSession().save(farmaciaArieta);
+		
+		Farmacia farmaciaAzul = new Farmacia ("Farmacia Azul", "Viernes");
+		farmaciaAzul.setDireccion(calleSuipacha);
+		getSession().save(farmaciaAzul);
+		
+		List<Farmacia> resultado = getSession().createCriteria(Farmacia.class)
+				.add(Restrictions.eq("direccion", calleSuipacha))
+				.list();
+		
+		assertThat(resultado).hasSize(3);
+		
+	}
+	
 	
 }
