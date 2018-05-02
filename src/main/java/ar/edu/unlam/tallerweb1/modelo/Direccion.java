@@ -32,10 +32,6 @@ public class Direccion {
 		return idDireccion;
 	}
 
-	public void setId(Long id) {
-		this.idDireccion = id;
-	}
-
 	public String getCalle() {
 		return calle;
 	}

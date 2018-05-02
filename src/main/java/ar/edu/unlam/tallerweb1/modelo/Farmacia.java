@@ -32,9 +32,6 @@ public class Farmacia {
 	public Long getId() {
 		return idFarmacia;
 	}
-	public void setId(Long id) {
-		this.idFarmacia = id;
-	}
 	public String getNombre() {
 		return nombre;
 	}

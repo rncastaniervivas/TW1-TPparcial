@@ -21,9 +21,6 @@ public class Barrio {
 	public Long getIdBarrio() {
 		return idBarrio;
 	}
-	public void setIdBarrio(Long idBarrio) {
-		this.idBarrio = idBarrio;
-	}
 
 	
 }
