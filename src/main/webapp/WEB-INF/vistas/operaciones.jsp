@@ -12,7 +12,7 @@
 		<div class = "container">
 			<h1>Operaciones</h1>
 			
-			<h3>El resultado de la operacion es ${reultado}</h3>
+			<h3>El resultado de la operacion es ${resultado}</h3>
 		</div>
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
